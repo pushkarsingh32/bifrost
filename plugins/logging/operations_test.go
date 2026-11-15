@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 	"time"
@@ -4447,7 +4448,7 @@ func TestGuardrailMetadataForLogReadsContextWithoutResponse(t *testing.T) {
 	if metadata == nil || len(metadata.JudgeCalls) != 1 {
 		t.Fatalf("guardrail metadata = %#v; want one context judge call", metadata)
 	}
-	if metadata.JudgeCalls[0] != requireCall {
+	if !reflect.DeepEqual(metadata.JudgeCalls[0], requireCall) {
 		t.Fatalf("guardrail call = %#v; want %#v", metadata.JudgeCalls[0], requireCall)
 	}
 }
